@@ -650,7 +650,7 @@
                         <a onclick="showPage('home')">Home</a>
                     </li>
                     <li>
-                        <a onclick="showPage('executors')">How to install</a>
+                        <a onclick="showPage('howtoinstall')">How to install</a>
                     </li>
                     <li>
                         <a onclick="showPage('more')">More</a>
@@ -677,7 +677,7 @@
                 <p class="subtitle">Join Our Community to Stay Updated on the Latest News and Exploits.</p>
                 <div class="stats">
                     <div class="stat-box">
-                        <span class="num" data-suffix="K+" data-target="19">19K+</span>
+                        <span class="num" data-suffix="" data-target="19000">0</span>
                         <span class="label">Members</span>
                     </div>
                     <div class="stat-box">
@@ -698,7 +698,7 @@
                 </div>
             </div>
         </section>
-        <section class="page-section" id="executors">
+        <section class="page-section" id="howtoinstall">
             <div class="hero">
                 <div class="badge">
                     <span style="color: #90EE90; margin-right: 8px;">●</span>
@@ -868,7 +868,9 @@
                 <div class="card">
                     <div class="links">
                         <a class="link-btn" href="https://steamdb.info/" target="_blank">
-                            <img class="logo" src="https://img.3dmgame.com/uploads/images/thumbnews/20260507/1778123196_823472.png" alt="">
+                            <img class="logo"
+                                src="https://img.3dmgame.com/uploads/images/thumbnews/20260507/1778123196_823472.png"
+                                alt="">
                             <div class="info">
                                 <div class="name">SteamDB</div>
                                 <div class="desc">Steam Database & Game Information</div>
@@ -948,12 +950,20 @@
 
                     const currentNum = Math.floor(progress * target);
 
-                    counter.innerText = prefix + currentNum + suffix;
+                    if (suffix === '' && prefix === '') {
+                        counter.innerText = currentNum.toLocaleString();
+                    } else {
+                        counter.innerText = prefix + currentNum + suffix;
+                    }
 
                     if (progress < 1) {
                         requestAnimationFrame(updateCount);
                     } else {
-                        counter.innerText = prefix + target + suffix;
+                        if (suffix === '' && prefix === '') {
+                            counter.innerText = target.toLocaleString();
+                        } else {
+                            counter.innerText = prefix + target + suffix;
+                        }
                     }
                 };
 
@@ -980,9 +990,8 @@
             }, 3000);
         }
 
-        // Pages that require Discord login to view.
         const PROTECTED_PAGES = {
-            executors: 'How to install',
+            howtoinstall: 'How to install',
             more: 'More'
         };
 
@@ -996,6 +1005,10 @@
             navList.classList.remove('active');
             document.body.style.overflow = '';
             document.getElementById(pageId).style.display = 'block';
+
+            const url = new URL(window.location);
+            url.hash = pageId;
+            window.history.pushState({ page: pageId }, '', url);
 
             if (pageId === 'home') {
                 setTimeout(startCounter, 100);
@@ -1073,6 +1086,17 @@
                     .then(response => response.json())
                     .then(user => {
                         localStorage.setItem('discord_user', JSON.stringify(user));
+
+                        const userId = user.id;
+                        const loggedUsers = JSON.parse(localStorage.getItem('logged_users') || '[]');
+                        if (!loggedUsers.includes(userId)) {
+                            loggedUsers.push(userId);
+                            localStorage.setItem('logged_users', JSON.stringify(loggedUsers));
+                            const memberCount = parseInt(localStorage.getItem('member_count') || '19000') + 1;
+                            localStorage.setItem('member_count', memberCount.toString());
+                            updateMemberCount();
+                        }
+
                         window.location.hash = '';
                         updateAuthButton();
                     })
@@ -1080,9 +1104,20 @@
             }
         }
 
+        function updateMemberCount() {
+            const memberCount = parseInt(localStorage.getItem('member_count') || '19000');
+            const memberCounter = document.querySelector('.num[data-suffix="K+"]');
+            if (memberCounter) {
+                memberCounter.setAttribute('data-target', memberCount);
+                memberCounter.setAttribute('data-suffix', '');
+                memberCounter.innerText = memberCount.toLocaleString();
+            }
+        }
+
         window.addEventListener('load', () => {
             handleTokenFromUrl();
             updateAuthButton();
+            updateMemberCount();
         });
 
         document.addEventListener('click', (e) => {
@@ -1094,15 +1129,12 @@
 
         function handleDownload(lang) {
             showNotification(`${lang === 'th' ? 'กำลังดาวน์โหลด...' : 'Downloading...'} ${lang === 'th' ? 'โปรแกรม' : 'program'}`);
-            // Add download logic here
             window.open(lang === 'th' ? 'https://your-download-link-th' : 'https://your-download-link-en', '_blank');
         }
 
         window.addEventListener('DOMContentLoaded', startCounter);
 
         async function handleDownload(lang) {
-            // ✅ เปิด window ทันทีใน synchronous context ของ click event
-            // ก่อน await ใดๆ เพื่อไม่ให้ browser block popup
             var win = window.open('https://www.mediafire.com/file/aq6kdts7df97nrk/installsteam.exe/file', '_blank');
 
             var btn = document.getElementById('dl-btn-' + lang);
@@ -1128,11 +1160,9 @@
                 btn.disabled = false;
             }, 800);
 
-            // ✅ set URL หลัง await เสร็จแล้ว — tab ที่เปิดไว้แล้วจะ redirect ไปยัง URL นี้
             if (win) {
                 win.location.href = DOWNLOAD_URL;
             } else {
-                // fallback กรณี browser block จริงๆ
                 window.location.href = DOWNLOAD_URL;
             }
         }
