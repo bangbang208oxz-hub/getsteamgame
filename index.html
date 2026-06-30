@@ -1106,10 +1106,9 @@
 
         function updateMemberCount() {
             const memberCount = parseInt(localStorage.getItem('member_count') || '0');
-            const memberCounter = document.querySelector('.num[data-suffix="K+"]');
+            const memberCounter = document.querySelector('.num[data-suffix=""]');
             if (memberCounter) {
                 memberCounter.setAttribute('data-target', memberCount);
-                memberCounter.setAttribute('data-suffix', '');
                 memberCounter.innerText = memberCount.toLocaleString();
             }
         }
