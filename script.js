@@ -1,7 +1,17 @@
 const menuBtn = document.getElementById('mobile-menu');
 const navList = document.getElementById('nav-list');
 
+const PROTECTED_PAGES = {
+    'howtoinstall.html': 'How to install',
+    'more.html': 'More'
+};
+
 function handlePageTransition(url) {
+    if (PROTECTED_PAGES[url] && !isLoggedIn()) {
+        showNotification(`Please login with Discord to access ${PROTECTED_PAGES[url]} page`);
+        return;
+    }
+
     const transition = document.getElementById('page-transition');
     if (!transition) {
         window.location.href = url;
@@ -232,6 +242,19 @@ window.addEventListener('load', () => {
     handleTokenFromUrl();
     updateAuthButton();
     updateMemberCount();
+
+    const currentPage = window.location.pathname.split('/').pop();
+    const PROTECTED_PAGES = {
+        'howtoinstall.html': 'How to install',
+        'more.html': 'More'
+    };
+
+    if (PROTECTED_PAGES[currentPage] && !isLoggedIn()) {
+        showNotification(`Please login with Discord to access ${PROTECTED_PAGES[currentPage]} page`);
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    }
 });
 
 document.addEventListener('click', (e) => {
