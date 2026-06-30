@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        Ex_Ascent - TH
+    </title>
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&display=swap');
+    </style>
+    <style>
+        :root {
+            --bg-dark: #000000;
+            --card-bg: #0a0a0a;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Fredoka', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            z-index: 1100;
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav ul a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        nav ul a:hover {
+            color: #fff;
+        }
+
+        .btn-discord-nav {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-discord-nav:hover {
+            background: #fff;
+            color: #000 !important;
+        }
+
+        .auth-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: rgba(7, 7, 7, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 0;
+            min-width: 150px;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 24px;
+            color: #fff;
+            font-size: 0.9rem;
+            z-index: 2000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #fff;
+            transition: var(--transition-smooth);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: #070707;
+                border-left: 1px solid var(--border-color);
+                padding: 100px 2rem;
+                transition: right 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+                z-index: 1000;
+                box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2.5rem;
+                opacity: 0;
+                transform: translateX(20px);
+                transition: all 0.5s ease 0.3s;
+            }
+
+            nav.active ul {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* --- HERO & CONTENT --- */
+        .page-section {
+            display: none;
+            padding: 80px 0;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #fff 30%, rgba(255, 255, 255, 0.4) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            font-weight: 300;
+        }
+
+        /* --- IMPROVED HORIZONTAL STATS BAR --- */
+        .stats {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            padding: 12px 35px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .stat-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-box .num {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .stat-box .label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-box:not(:last-child)::after {
+            content: "";
+            height: 12px;
+            width: 1px;
+            background: var(--border-color);
+            margin-left: 15px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                gap: 12px;
+                padding: 10px 20px;
+            }
+
+            .stat-box .num {
+                font-size: 0.95rem;
+            }
+
+            .stat-box .label {
+                font-size: 0.55rem;
+                letter-spacing: 0.5px;
+            }
+
+            .stat-box:not(:last-child)::after {
+                margin-left: 8px;
+            }
+        }
+
+        /* --- CARDS --- */
+        .executor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .executor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .executor-card:hover {
+            border-color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .exec-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .exec-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+        }
+
+        .btn-download {
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: #444;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="notification" id="notification"></div>
+    <header>
+        <div class="container nav-wrapper">
+            <a class="logo" href="javascript:void(0)" onclick="showPage('home')">
+                <img alt="Logo" src="logo.jpg" />
+                Ex_Ascent - TH
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="nav-list">
+                <ul>
+                    <li>
+                        <a onclick="showPage('home')">Home</a>
+                    </li>
+                    <li>
+                        <a onclick="showPage('executors')">How to install</a>
+                    </li>
+                    <li>
+                        <a onclick="showPage('more')">More</a>
+                    </li>
+                    <li class="auth-dropdown">
+                        <a class="btn-discord-nav" id="auth-btn" onclick="handleAuth()">Login</a>
+                        <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                            <a href="https://discord.com/invite/WJjB4URvRt" target="_blank">Discord</a>
+                            <a onclick="logout()">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section class="page-section" id="home" style="display: block;">
+            <div class="hero">
+                <div class="badge">
+                    <span style="color: #3b82f6; margin-right: 8px;">●</span>
+                    Official
+                </div>
+                <h1>Welcome to Ex_Ascent</h1>
+                <p class="subtitle">Join Our Community to Stay Updated on the Latest News and Exploits.</p>
+                <div class="stats">
+                    <div class="stat-box">
+                        <span class="num" data-suffix="K+" data-target="19">19K+</span>
+                        <span class="label">Members</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="num" data-counter="experience" data-start="2025-05-01">0M</span>
+                        <span class="label">Experience</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="num" data-prefix="#" data-target="1">#1</span>
+                        <span class="label">Top Rated</span>
+                    </div>
+                </div>
+                <div style="margin-top: 10px; display: flex; justify-content: center;">
+                    <iframe allowtransparency="true" frameborder="0" height="400"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        src="https://discord.com/widget?id=1266737920119668737&amp;theme=dark"
+                        style="border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);" width="350">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+        <section class="page-section" id="executors">
+            <div class="hero">
+                <div class="badge">
+                    <span style="color: #90EE90; margin-right: 8px;">●</span>
+                    Always Updated &amp; Working
+                </div>
+                <h1>Powerful Android<br />Exploiting Tools</h1>
+                <p class="subtitle">
+                    Experience the Ultimate Performance with Our Curated List of
+                    <strong>Ex_Ascents</strong>. Safe, Fast, and Optimized for Android.
+                </p>
+            </div>
+            <div class="executor-grid">
+                <div class="executor-card">
+                    <div class="exec-info">
+                        <img alt="Delta" src="delta.jpg" />
+                        <h3>Delta</h3>
+                    </div>
+                    <a class="btn-download" href="https://delta.filenetwork.vip/android.html">Download</a>
+                </div>
+                <div class="executor-card">
+                    <div class="exec-info">
+                        <img alt="Codex" src="codex.webp" />
+                        <h3>Codex</h3>
+                    </div>
+                    <a class="btn-download" href="https://codex.lol/android">Download</a>
+                </div>
+                <div class="executor-card">
+                    <div class="exec-info">
+                        <img alt="Arceus" src="arceus.png" />
+                        <h3>Arceus X</h3>
+                    </div>
+                    <a class="btn-download" href="https://android.spdmteam.com/">Download</a>
+                </div>
+                <div class="executor-card">
+                    <div class="exec-info">
+                        <img alt="Trigon" src="trigon.webp" />
+                        <h3>Trigon</h3>
+                    </div>
+                    <a class="btn-download" href="https://trigonevo.com/download?os=android&amp;fs=mediafire">Download</a>
+                </div>
+                <div class="executor-card">
+                    <div class="exec-info">
+                        <img alt="Roinx" src="roinx.jpg" />
+                        <h3>Roinx</h3>
+                    </div>
+                    <a class="btn-download" href="https://ronixstudios.io/#/download?platform=android">Download</a>
+                </div>
+            </div>
+        </section>
+        <section class="page-section" id="more">
+            <div class="hero">
+                <div class="badge">
+                    <span style="color: #f59e0b; margin-right: 8px;">●</span>
+                    Members Only
+                </div>
+                <h1>More</h1>
+                <p class="subtitle">Additional content for the community.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2026 <strong>Ex_Ascent - TH</strong> All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const menuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        function startCounter() {
+            const counters = document.querySelectorAll('.num');
+
+            counters.forEach(counter => {
+                const counterType = counter.getAttribute('data-counter');
+
+                if (counterType === 'experience') {
+                    const startDate = new Date(counter.getAttribute('data-start'));
+
+                    const updateExperience = () => {
+                        const now = new Date();
+                        const diffTime = Math.abs(now - startDate);
+                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        const years = Math.floor(diffDays / 365);
+                        const months = Math.floor((diffDays % 365) / 30);
+
+                        if (years > 0) {
+                            counter.innerText = `${years}Y ${months}M`;
+                        } else {
+                            counter.innerText = `${months}M`;
+                        }
+                    };
+
+                    updateExperience();
+                    setInterval(updateExperience, 60000);
+                    return;
+                }
+
+                const target = +counter.getAttribute('data-target');
+                const suffix = counter.getAttribute('data-suffix') || "";
+                const prefix = counter.getAttribute('data-prefix') || "";
+
+                const duration = 800;
+                const startTime = performance.now();
+
+                const updateCount = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    const currentNum = Math.floor(progress * target);
+
+                    counter.innerText = prefix + currentNum + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = prefix + target + suffix;
+                    }
+                };
+
+                requestAnimationFrame(updateCount);
+            });
+        }
+
+        menuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            if (navList.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Pages that require Discord login to view.
+        const PROTECTED_PAGES = {
+            executors: 'How to install',
+            more: 'More'
+        };
+
+        function showPage(pageId) {
+            if (PROTECTED_PAGES[pageId] && !isLoggedIn()) {
+                showNotification(`Please login with Discord to access ${PROTECTED_PAGES[pageId]} page`);
+                return;
+            }
+
+            document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+            navList.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById(pageId).style.display = 'block';
+
+            if (pageId === 'home') {
+                setTimeout(startCounter, 100);
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const DISCORD_CLIENT_ID = '1510107330161672252';
+        const REDIRECT_URI = window.location.origin + '/index.html';
+
+        function handleAuth() {
+            if (isLoggedIn()) {
+                toggleDropdown();
+            } else {
+                login();
+            }
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.style.display = 'none';
+        }
+
+        function login() {
+            const scope = 'identify';
+            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
+            window.location.href = authUrl;
+        }
+
+        function logout() {
+            localStorage.removeItem('discord_token');
+            localStorage.removeItem('discord_user');
+            closeDropdown();
+            updateAuthButton();
+            showNotification('Logged out successfully');
+        }
+
+        function isLoggedIn() {
+            return localStorage.getItem('discord_token') !== null;
+        }
+
+        function updateAuthButton() {
+            const authBtn = document.getElementById('auth-btn');
+            const dropdown = document.getElementById('dropdown-menu');
+
+            if (isLoggedIn()) {
+                const user = JSON.parse(localStorage.getItem('discord_user'));
+                authBtn.innerText = user ? user.username : 'User';
+                dropdown.style.display = 'none';
+            } else {
+                authBtn.innerText = 'Login';
+                dropdown.style.display = 'none';
+            }
+        }
+
+        function handleTokenFromUrl() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const token = params.get('access_token');
+
+            if (token) {
+                localStorage.setItem('discord_token', token);
+
+                fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(user => {
+                        localStorage.setItem('discord_user', JSON.stringify(user));
+                        window.location.hash = '';
+                        updateAuthButton();
+                    })
+                    .catch(err => console.error('Error fetching user:', err));
+            }
+        }
+
+        window.addEventListener('load', () => {
+            handleTokenFromUrl();
+            updateAuthButton();
+        });
+
+        document.addEventListener('click', (e) => {
+            const authDropdown = document.querySelector('.auth-dropdown');
+            if (!authDropdown.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', startCounter);
+    </script>
+
+</body>
+
+</html>
