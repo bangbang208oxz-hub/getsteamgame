@@ -677,7 +677,7 @@
                 <p class="subtitle">Join Our Community to Stay Updated on the Latest News and Exploits.</p>
                 <div class="stats">
                     <div class="stat-box">
-                        <span class="num" data-suffix="" data-target="19000">0</span>
+                        <span class="num" data-suffix="" data-target="0">0</span>
                         <span class="label">Members</span>
                     </div>
                     <div class="stat-box">
@@ -1092,7 +1092,7 @@
                         if (!loggedUsers.includes(userId)) {
                             loggedUsers.push(userId);
                             localStorage.setItem('logged_users', JSON.stringify(loggedUsers));
-                            const memberCount = parseInt(localStorage.getItem('member_count') || '19000') + 1;
+                            const memberCount = parseInt(localStorage.getItem('member_count') || '0') + 1;
                             localStorage.setItem('member_count', memberCount.toString());
                             updateMemberCount();
                         }
@@ -1105,7 +1105,7 @@
         }
 
         function updateMemberCount() {
-            const memberCount = parseInt(localStorage.getItem('member_count') || '19000');
+            const memberCount = parseInt(localStorage.getItem('member_count') || '0');
             const memberCounter = document.querySelector('.num[data-suffix="K+"]');
             if (memberCounter) {
                 memberCounter.setAttribute('data-target', memberCount);
