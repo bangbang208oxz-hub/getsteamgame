@@ -392,6 +392,128 @@
             font-size: 0.85rem;
         }
 
+        /* --- LANGUAGE CARDS --- */
+        .lang-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .lang-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-card:hover {
+            border-color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .lang-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .lang-flag {
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+
+        .lang-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .lang-sub {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-left: 8px;
+        }
+
+        .lang-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .download-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .steps {
+            padding: 24px;
+        }
+
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-text {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .step-note {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
         footer {
             padding: 60px 0;
             text-align: center;
@@ -475,47 +597,156 @@
                     <span style="color: #90EE90; margin-right: 8px;">●</span>
                     Always Updated &amp; Working
                 </div>
-                <h1>Powerful Android<br />Exploiting Tools</h1>
+                <h1>How to Install<br /><span style="font-size: 0.7em;">วิธีติดตั้ง</span></h1>
                 <p class="subtitle">
-                    Experience the Ultimate Performance with Our Curated List of
-                    <strong>Ex_Ascents</strong>. Safe, Fast, and Optimized for Android.
+                    Follow these steps to install games on Steam.<br />
+                    <span style="font-size: 0.9em;">ทำตามขั้นตอนเหล่านี้เพื่อติดตั้งเกมบน Steam</span>
                 </p>
             </div>
-            <div class="executor-grid">
-                <div class="executor-card">
-                    <div class="exec-info">
-                        <img alt="Delta" src="delta.jpg" />
-                        <h3>Delta</h3>
+
+            <div class="lang-cards-container">
+                <!-- English Card -->
+                <div class="lang-card">
+                    <div class="lang-header">
+                        <span class="lang-flag">🇺🇸 |</span>
+                        <span class="lang-title">How to Install Games</span>
+                        <span class="lang-sub">English</span>
+                        <div class="lang-actions">
+                            <button class="download-btn" id="dl-btn-en" onclick="handleDownload('en')">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                Download App
+                            </button>
+                        </div>
                     </div>
-                    <a class="btn-download" href="https://delta.filenetwork.vip/android.html">Download</a>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <div class="step-text">Download Program</div>
+                                <div class="step-note">Download the program to install the game on the Steam app.</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <div class="step-text">Disable Your Antivirus</div>
+                                <div class="step-note">Turn off real-time protection before continuing.</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <div class="step-text"> Run the Application</div>
+                                <div class="step-note">Launch the program included in the ZIP file and follow the
+                                    on-screen instructions until the process is complete.</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <div class="step-text">Enter the App ID &amp; Game ID</div>
+                                <div class="step-note">Enter the App ID and Game ID of the game you want to install.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">5</div>
+                            <div class="step-content">
+                                <div class="step-text">Wait for the Process to Complete</div>
+                                <div class="step-note">Please wait until the setup process finishes automatically.</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">6</div>
+                            <div class="step-content">
+                                <div class="step-text">Return to the Steam App</div>
+                                <div class="step-note">Go back to Steam and start the game installation.</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">7</div>
+                            <div class="step-content">
+                                <div class="step-text">Re-enable Your Antivirus</div>
+                                <div class="step-note">Turn real-time protection back on as before.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="executor-card">
-                    <div class="exec-info">
-                        <img alt="Codex" src="codex.webp" />
-                        <h3>Codex</h3>
+
+                <!-- Thai Card -->
+                <div class="lang-card">
+                    <div class="lang-header">
+                        <span class="lang-flag">🇹🇭 |</span>
+                        <span class="lang-title">วิธีติดตั้งเกม</span>
+                        <span class="lang-sub">ภาษาไทย</span>
+                        <div class="lang-actions">
+                            <button class="download-btn" id="dl-btn-th" onclick="handleDownload('th')">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                โหลดแอพ
+                            </button>
+                        </div>
                     </div>
-                    <a class="btn-download" href="https://codex.lol/android">Download</a>
-                </div>
-                <div class="executor-card">
-                    <div class="exec-info">
-                        <img alt="Arceus" src="arceus.png" />
-                        <h3>Arceus X</h3>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <div class="step-text">ดาวน์โหลดโปรแกรม</div>
+                                <div class="step-note">ดาวน์โหลดโปรแกรมเพื่อติดตั้งเกมบนแอพ Steam</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <div class="step-text">ปิดแอนตี้ไวรัส</div>
+                                <div class="step-note">ปิด real-time protection ก่อนดำเนินการต่อ</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <div class="step-text">รันโปรแกรม</div>
+                                <div class="step-note">ทำตามขั้นตอนการติดตั้งจนเสร็จสมบูรณ์</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <div class="step-text">กรอก App ID &amp; ID GAME</div>
+                                <div class="step-note">กรอกข้อมูล App ID และ ID GAME ของเกมที่จะติดตั้ง</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">5</div>
+                            <div class="step-content">
+                                <div class="step-text">รอให้โปรแกรมดำเนินการเสร็จสิ้น</div>
+                                <div class="step-note">โปรดรอจนกว่าการตั้งค่าจะเสร็จสมบูรณ์</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">6</div>
+                            <div class="step-content">
+                                <div class="step-text">กลับไปที่แอพ Steam</div>
+                                <div class="step-note">จากนั้นกดติดตั้งเกมได้เลย</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">7</div>
+                            <div class="step-content">
+                                <div class="step-text">เปิดแอนตี้ไวรัส</div>
+                                <div class="step-note">เปิด Real-time Protection ให้กลับเป็นเหมือนเดิม</div>
+                            </div>
+                        </div>
                     </div>
-                    <a class="btn-download" href="https://android.spdmteam.com/">Download</a>
-                </div>
-                <div class="executor-card">
-                    <div class="exec-info">
-                        <img alt="Trigon" src="trigon.webp" />
-                        <h3>Trigon</h3>
-                    </div>
-                    <a class="btn-download" href="https://trigonevo.com/download?os=android&amp;fs=mediafire">Download</a>
-                </div>
-                <div class="executor-card">
-                    <div class="exec-info">
-                        <img alt="Roinx" src="roinx.jpg" />
-                        <h3>Roinx</h3>
-                    </div>
-                    <a class="btn-download" href="https://ronixstudios.io/#/download?platform=android">Download</a>
                 </div>
             </div>
         </section>
@@ -723,6 +954,12 @@
                 closeDropdown();
             }
         });
+
+        function handleDownload(lang) {
+            showNotification(`${lang === 'th' ? 'กำลังดาวน์โหลด...' : 'Downloading...'} ${lang === 'th' ? 'โปรแกรม' : 'program'}`);
+            // Add download logic here
+            window.open(lang === 'th' ? 'https://your-download-link-th' : 'https://your-download-link-en', '_blank');
+        }
 
         window.addEventListener('DOMContentLoaded', startCounter);
     </script>
