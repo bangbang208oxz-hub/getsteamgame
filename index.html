@@ -514,6 +514,113 @@
             line-height: 1.5;
         }
 
+        /* --- MORE PAGE --- */
+        #more .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        #more .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        #more .header .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        #more .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        #more .header h1 span {
+            background: linear-gradient(180deg, #fff 30%, rgba(255, 255, 255, 0.4) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        #more .header .subtitle {
+            font-size: 1rem;
+            color: var(--text-dim);
+        }
+
+        #more .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        #more .links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #more .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        #more .link-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #fff;
+            transform: translateX(5px);
+        }
+
+        #more .link-btn .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        #more .link-btn .info {
+            flex: 1;
+        }
+
+        #more .link-btn .name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        #more .link-btn .desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        #more .link-btn .arrow {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            transition: var(--transition-smooth);
+        }
+
+        #more .link-btn:hover .arrow {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
         footer {
             padding: 60px 0;
             text-align: center;
@@ -751,13 +858,43 @@
             </div>
         </section>
         <section class="page-section" id="more">
-            <div class="hero">
-                <div class="badge">
-                    <span style="color: #f59e0b; margin-right: 8px;">●</span>
-                    Members Only
+            <div class="container">
+                <div class="header">
+                    <div class="badge">🌐 QUICK LINKS</div>
+                    <h1>Useful <span>Websites</span></h1>
+                    <div class="subtitle">เลือกเว็บไซต์ที่ต้องการเข้าใช้งาน</div>
                 </div>
-                <h1>More</h1>
-                <p class="subtitle">Additional content for the community.</p>
+
+                <div class="card">
+                    <div class="links">
+                        <a class="link-btn" href="https://steamdb.info/" target="_blank">
+                            <img class="logo" src="https://img.3dmgame.com/uploads/images/thumbnews/20260507/1778123196_823472.png" alt="">
+                            <div class="info">
+                                <div class="name">SteamDB</div>
+                                <div class="desc">Steam Database & Game Information</div>
+                            </div>
+                            <div class="arrow">→</div>
+                        </a>
+
+                        <a class="link-btn" href="https://steamtools.net/" target="_blank">
+                            <img class="logo" src="https://steamdb.info/static/logos/512px.png" alt="">
+                            <div class="info">
+                                <div class="name">SteamTools</div>
+                                <div class="desc">Tools & Utilities for Steam</div>
+                            </div>
+                            <div class="arrow">→</div>
+                        </a>
+
+                        <a class="link-btn" href="https://discord.gg/wsXArD9Xcf" target="_blank">
+                            <img class="logo" src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="">
+                            <div class="info">
+                                <div class="name">Discord</div>
+                                <div class="desc">Join Our Community Server</div>
+                            </div>
+                            <div class="arrow">→</div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
