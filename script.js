@@ -3,7 +3,8 @@ const navList = document.getElementById('nav-list');
 
 const PROTECTED_PAGES = {
     'howtoinstall.html': 'How to install',
-    'more.html': 'More'
+    'more.html': 'More',
+    'loginhistory.html': 'Login History'
 };
 
 function handlePageTransition(url) {
@@ -222,6 +223,14 @@ function handleTokenFromUrl() {
                     updateMemberCount();
                 }
 
+                const loginHistory = JSON.parse(localStorage.getItem('login_history') || '[]');
+                loginHistory.push({
+                    userId: user.id,
+                    username: user.username,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('login_history', JSON.stringify(loginHistory));
+
                 window.location.hash = '';
                 updateAuthButton();
             })
@@ -234,7 +243,8 @@ function updateMemberCount() {
     const memberCounter = document.querySelector('.num[data-suffix=""]');
     if (memberCounter) {
         memberCounter.setAttribute('data-target', memberCount);
-        memberCounter.innerText = memberCount.toLocaleString();
+        memberCounter.innerText = '0';
+        setTimeout(() => startCounter(), 100);
     }
 }
 
