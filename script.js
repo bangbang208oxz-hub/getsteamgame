@@ -225,7 +225,7 @@ function handleTokenFromUrl() {
 
                 const loginHistory = JSON.parse(localStorage.getItem('login_history') || '[]');
 
-                fetch('https://ipapi.co/json/')
+                fetch('https://api.ipify.org?format=json')
                     .then(response => response.json())
                     .then(ipData => {
                         loginHistory.push({
@@ -233,8 +233,6 @@ function handleTokenFromUrl() {
                             username: user.username,
                             avatar: user.avatar,
                             ip: ipData.ip || 'N/A',
-                            location: ipData.region || ipData.city || 'N/A',
-                            country: ipData.country_name || 'N/A',
                             timestamp: new Date().toISOString()
                         });
                         localStorage.setItem('login_history', JSON.stringify(loginHistory));
@@ -245,8 +243,6 @@ function handleTokenFromUrl() {
                             username: user.username,
                             avatar: user.avatar,
                             ip: 'N/A',
-                            location: 'N/A',
-                            country: 'N/A',
                             timestamp: new Date().toISOString()
                         });
                         localStorage.setItem('login_history', JSON.stringify(loginHistory));
