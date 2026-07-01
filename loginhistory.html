@@ -33,12 +33,10 @@
                     <li>
                         <a href="more.html">More</a>
                     </li>
-                    <li>
-                        <a href="loginhistory.html">Login History</a>
-                    </li>
                     <li class="auth-dropdown">
                         <a class="btn-discord-nav" id="auth-btn" onclick="handleAuth()">Login</a>
                         <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                            <a href="loginhistory.html">Login History</a>
                             <a href="https://discord.gg/TA26XCrdEG" target="_blank">Discord</a>
                             <a onclick="logout()">Logout</a>
                         </div>
@@ -81,11 +79,16 @@
                 return;
             }
 
-            container.innerHTML = loginHistory.reverse().map((login, index) => `
+            container.innerHTML = loginHistory.reverse().map((login, index) => {
+                const avatarUrl = login.avatar ? `https://cdn.discordapp.com/avatars/${login.userId}/${login.avatar}.png` : null;
+                return `
                 <div style="display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 16px;">
-                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.2rem;">
-                        ${login.username ? login.username.charAt(0).toUpperCase() : '?'}
-                    </div>
+                    ${avatarUrl ?
+                        `<img src="${avatarUrl}" alt="${login.username}" style="width: 48px; height: 48px; border-radius: 12px; object-fit: cover;" />` :
+                        `<div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.2rem;">
+                            ${login.username ? login.username.charAt(0).toUpperCase() : '?'}
+                        </div>`
+                    }
                     <div style="flex: 1;">
                         <div style="font-weight: 600; color: #fff; margin-bottom: 4px;">${login.username || 'Unknown User'}</div>
                         <div style="font-size: 0.85rem; color: var(--text-dim);">ID: ${login.userId || 'N/A'}</div>
@@ -94,7 +97,7 @@
                         <div style="font-size: 0.85rem; color: var(--text-dim);">${new Date(login.timestamp).toLocaleString()}</div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         document.addEventListener('DOMContentLoaded', loadLoginHistory);

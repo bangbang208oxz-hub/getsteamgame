@@ -227,6 +227,7 @@ function handleTokenFromUrl() {
                 loginHistory.push({
                     userId: user.id,
                     username: user.username,
+                    avatar: user.avatar,
                     timestamp: new Date().toISOString()
                 });
                 localStorage.setItem('login_history', JSON.stringify(loginHistory));
