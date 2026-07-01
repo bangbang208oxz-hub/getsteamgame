@@ -10,6 +10,9 @@ const PROTECTED_PAGES = {
 function handlePageTransition(url) {
     if (PROTECTED_PAGES[url] && !isLoggedIn()) {
         showNotification(`Please login with Discord to access ${PROTECTED_PAGES[url]} page`);
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
         return;
     }
 
