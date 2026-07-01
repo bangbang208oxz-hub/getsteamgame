@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Home - Ex_Ascent - TH</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="notification" id="notification"></div>
+    <header>
+        <div class="container nav-wrapper">
+            <a class="logo" href="index.html">
+                <img alt="Logo" src="logo.jpg" />
+                Ex_Ascent - TH
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="nav-list">
+                <ul>
+                    <li>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="howtoinstall.html">How to install</a>
+                    </li>
+                    <li>
+                        <a href="more.html">More</a>
+                    </li>
+                    <li class="auth-dropdown">
+                        <a class="btn-discord-nav" id="auth-btn" onclick="handleAuth()">Login</a>
+                        <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                            <a href="loginhistory.html">Login History</a>
+                            <a href="https://discord.gg/TA26XCrdEG" target="_blank">Discord</a>
+                            <a onclick="logout()">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section class="page-section" style="display: block;">
+            <div class="hero">
+                <div class="badge">
+                    <span style="color: #3b82f6; margin-right: 8px;">●</span>
+                    Official
+                </div>
+                <h1>Welcome to Ex_Ascent</h1>
+                <p class="subtitle">Join Our Community to Stay Updated on the Latest News and Exploits.</p>
+                <div class="stats">
+                    <div class="stat-box">
+                        <span class="num" data-suffix="" data-target="3245">3,245</span>
+                        <span class="label">Members</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="num" data-counter="experience" data-start="2026-05-30">0M</span>
+                        <span class="label">Experience</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="num" data-prefix="#" data-target="1">#1</span>
+                        <span class="label">Top Rated</span>
+                    </div>
+                </div>
+                <div style="margin-top: 10px; display: flex; justify-content: center;">
+                    <iframe allowtransparency="true" frameborder="0" height="400"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        src="https://discord.com/widget?id=1423620371248189523&amp;theme=dark"
+                        style="border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);" width="350">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2026 <strong>Ex_Ascent - TH</strong> All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
