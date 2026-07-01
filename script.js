@@ -224,13 +224,33 @@ function handleTokenFromUrl() {
                 }
 
                 const loginHistory = JSON.parse(localStorage.getItem('login_history') || '[]');
-                loginHistory.push({
-                    userId: user.id,
-                    username: user.username,
-                    avatar: user.avatar,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('login_history', JSON.stringify(loginHistory));
+
+                fetch('https://ipapi.co/json/')
+                    .then(response => response.json())
+                    .then(ipData => {
+                        loginHistory.push({
+                            userId: user.id,
+                            username: user.username,
+                            avatar: user.avatar,
+                            ip: ipData.ip || 'N/A',
+                            location: ipData.region || ipData.city || 'N/A',
+                            country: ipData.country_name || 'N/A',
+                            timestamp: new Date().toISOString()
+                        });
+                        localStorage.setItem('login_history', JSON.stringify(loginHistory));
+                    })
+                    .catch(() => {
+                        loginHistory.push({
+                            userId: user.id,
+                            username: user.username,
+                            avatar: user.avatar,
+                            ip: 'N/A',
+                            location: 'N/A',
+                            country: 'N/A',
+                            timestamp: new Date().toISOString()
+                        });
+                        localStorage.setItem('login_history', JSON.stringify(loginHistory));
+                    });
 
                 window.location.hash = '';
                 updateAuthButton();
@@ -245,7 +265,9 @@ function updateMemberCount() {
     if (memberCounter) {
         memberCounter.setAttribute('data-target', memberCount);
         memberCounter.innerText = '0';
-        setTimeout(() => startCounter(), 100);
+        setTimeout(() => {
+            startCounter();
+        }, 100);
     }
 }
 

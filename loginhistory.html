@@ -80,11 +80,14 @@
             }
 
             container.innerHTML = loginHistory.reverse().map((login, index) => {
-                const avatarUrl = login.avatar ? `https://cdn.discordapp.com/avatars/${login.userId}/${login.avatar}.png` : null;
+                const avatarUrl = login.avatar && login.userId ? `https://cdn.discordapp.com/avatars/${login.userId}/${login.avatar}.png?size=128` : null;
                 return `
                 <div style="display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 16px;">
                     ${avatarUrl ?
-                        `<img src="${avatarUrl}" alt="${login.username}" style="width: 48px; height: 48px; border-radius: 12px; object-fit: cover;" />` :
+                        `<img src="${avatarUrl}" alt="${login.username}" style="width: 48px; height: 48px; border-radius: 12px; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div style="display: none; width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.2rem;">
+                            ${login.username ? login.username.charAt(0).toUpperCase() : '?'}
+                        </div>` :
                         `<div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.2rem;">
                             ${login.username ? login.username.charAt(0).toUpperCase() : '?'}
                         </div>`
@@ -92,6 +95,8 @@
                     <div style="flex: 1;">
                         <div style="font-weight: 600; color: #fff; margin-bottom: 4px;">${login.username || 'Unknown User'}</div>
                         <div style="font-size: 0.85rem; color: var(--text-dim);">ID: ${login.userId || 'N/A'}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-dim); margin-top: 2px;">IP: ${login.ip || 'N/A'}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-dim);">Location: ${login.location || 'N/A'}, ${login.country || 'N/A'}</div>
                     </div>
                     <div style="text-align: right;">
                         <div style="font-size: 0.85rem; color: var(--text-dim);">${new Date(login.timestamp).toLocaleString()}</div>
