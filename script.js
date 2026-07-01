@@ -238,6 +238,12 @@ function updateMemberCount() {
     }
 }
 
+function resetMemberCount() {
+    localStorage.setItem('member_count', '0');
+    localStorage.setItem('logged_users', '[]');
+    updateMemberCount();
+}
+
 window.addEventListener('load', () => {
     handleTokenFromUrl();
     updateAuthButton();
