@@ -90,7 +90,7 @@
                         <div style="font-size: 0.85rem; color: var(--text-dim); margin-top: 2px;">IP: ${login.ip || 'N/A'}</div>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 0.85rem; color: var(--text-dim);">${new Date(login.timestamp).toLocaleString()}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-dim);">${new Date(login.timestamp).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}</div>
                     </div>
                 </div>
             `}).join('');
